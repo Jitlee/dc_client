@@ -22,7 +22,7 @@
 		</div>
 		<script>
 			const cv = require('./js/checkversion.js') // 项目通用方法库
-			const zipUrl = 'http://127.0.0.1:8020/test/ui.zip' // html文件压缩包
+			const zipUrl = cv.getFullUrl('/Upload/ui.zip') // html文件压缩包
 			const datas = [
 				{ url: '/index.php/Api/FoodCategory/lst', name: 'categroies', imageField: '' },
 				{ url: '/index.php/Api/Food/lst', name: 'foods', imageField: 'thumb' },

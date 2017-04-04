@@ -9,18 +9,18 @@ Vue.component('dc-print', {
 	created() {
 		const ths = this
 		const state = this.$store.state
-//		const mediaQueryList = window.matchMedia('print')
-//		mediaQueryList.addListener(function(mql) {
-//		    if (mql.matches) {
-//		        console.log('正在打印')
-//		    } else {
-//		        console.log('打印结束')
-//		        state.orderState = 0
-//		        ths.$store.commit('clear')
-//		        ths.totalprice = 0
-//		        ths.foods.length = 0
-//		    }
-//		})
+		const mediaQueryList = window.matchMedia('print')
+		mediaQueryList.addListener(function(mql) {
+		    if (mql.matches) {
+		        console.log('正在打印')
+		    } else {
+		        console.log('打印结束')
+		        state.orderState = 0
+		        ths.$store.commit('clear')
+		        ths.totalprice = 0
+		        ths.foods.length = 0
+		    }
+		})
 	},
 	mounted() {
 		

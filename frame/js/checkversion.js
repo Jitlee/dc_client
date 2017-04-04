@@ -320,13 +320,13 @@ function postJSON(api, data, success, fail) {
 	})
 }
 
-let _machineCode = 'sdoifh' // 机器码
+let _machineCode = '' // 机器码
+//let _machineCode = 'sdoifh' // 机器码
 function getMachineCode(callback) {
 	if(_machineCode) {
 		callback(_machineCode)
 		return
 	}
-	debugger
 	// 获取机器信息
 	const os = require('os')
 	const isWindows = os.type() == 'Windows_NT'
@@ -368,6 +368,7 @@ module.exports = {
 	readConfig: readConfig,
 	saveConfig: saveConfig,
 	extend: extend,
+	getFullUrl: getFullUrl,
 	readData: readData,
 	getJSON: getJSON,
 	postJSON: postJSON,
