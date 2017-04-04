@@ -1,0 +1,64 @@
+
+html,body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    -webkit-user-select: none;
+}
+
+body {
+    padding: @out-margin;
+    color: @font-color;
+}
+
+// 去掉客户端滚动条
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 0px;
+    background: transparent;
+}
+
+// 图片背景
+.bgimg() {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+// 强制不换行
+.nowrap() {
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: keep-all;
+    text-overflow: ellipsis;
+}
+
+// 居中
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clear() {
+    &:after {
+        content: "";
+        height:0;
+        display: block;
+        clear: both;
+    }
+}
+
+.clickZoomIn() {
+    transition: transform 0.2s ease-in-out;
+    
+    &:active {
+       transform: scale(1.05, 1.05);
+       color: red; 
+    }
+}

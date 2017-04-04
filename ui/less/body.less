@@ -1,0 +1,40 @@
+
+.body {
+    border-top: solid 1px @border-color;
+    box-sizing: border-box;
+    
+    h3 {
+        height: @body-title-height;
+        line-height: @body-title-height;
+        font-size: 1.5vh;
+        padding: 0 0 0 2vw;
+        margin: 0;
+        
+        border-bottom: solid 1px @border-color;
+        
+        .iconfont {
+            vertical-align: middle;
+            margin: 0 0.3vw;
+            color: @main-color;
+        }
+    }
+    
+    .menu {
+        width: @menu-width;
+    }
+    
+    .food {
+        width: @food-width;
+    }
+    
+    .menu, .food {
+        box-sizing: border-box;
+        float: left;
+        
+        ul {
+            display: block;
+            height: @body-content-height;
+            overflow: auto;
+        }
+    }
+}

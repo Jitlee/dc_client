@@ -1,0 +1,49 @@
+
+// 完成
+.done {
+    .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(200,200,200,0.5);
+        z-index: 999;
+    }
+    
+    .done-body {
+        z-index: 999;
+        position: absolute;
+        top: 38vh;
+        left: 25vw;
+        
+        border-radius: 2vh;
+        background-color: @bg-color;
+        color: @font-color;
+        text-align: center;
+        box-sizing: border-box;
+        
+        width: 50vw;
+        
+        img {
+            width: 17vw;
+            margin: 3vh 0 1vh 0;
+        }
+        
+        p {
+            font-size: 1.5vh;   
+        }
+        
+        a {
+            background-color: @blue-color;
+            color: @bg-color;
+            font-size: 1vh;
+            padding: 0 1vh;
+            margin: 1vh 0 3vh 0;
+            height: 3vh;
+            line-height: 3vh;
+            border-radius: 2vh;
+            display: inline-block;
+        }
+    }
+}

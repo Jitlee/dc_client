@@ -1,0 +1,71 @@
+// 餐品
+
+.food {
+    
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    li {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        
+        width: @food-col-width;
+        height: @food-row-height;
+        float: left;
+        display: block;
+        padding: @food-padding;
+        
+        .img {
+            .bgimg();
+            width: @food-img-size;
+            height: @food-img-size;
+            border-radius: @food-img-radius;
+        }
+        
+        p {
+            padding: 0;
+            margin: 0;
+            line-height: initial;
+            text-align: right;
+            
+            position: absolute;
+            left: @food-left;
+            
+            font-size: 1vh;
+            
+            &.name {
+                top: @food-text-margin;
+            }
+            
+            &.money {
+                top: 50%;
+                transform: translateY(-50%);
+                color: @main-color;
+            }
+            
+            &.count {
+                .nowrap();
+                bottom: @food-text-margin;
+                
+                .iconfont {
+                    cursor: pointer;
+                    font-size: 2vh;
+                    vertical-align: middle;
+                }
+                
+                span {
+                    display: inline-block;
+                    width: 5vw;
+                    text-align: center;
+                    color: @main-color;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}

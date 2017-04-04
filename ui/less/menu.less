@@ -1,0 +1,60 @@
+
+.menu {
+    background-color: @menu-bg-color;
+        
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    li {
+        position: relative;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        height: @body-item-height;
+        line-height: @body-item-height;
+        vertical-align: middle;
+        padding-top: 2.5vh;
+        box-sizing: border-box;
+        cursor: pointer;
+        border-bottom: solid 1px @border-color;
+        
+        h4, h5 {
+            padding: 0;
+            margin: 0;
+            line-height: initial;
+            font-weight: normal;
+            .nowrap();
+        }
+        
+        h4 {
+            font-size: 1vh;
+        }
+        
+        h5 {
+            font-size: 0.5vh;
+        }
+        
+        .badge {
+            position:absolute;
+            right: 1vh;
+            top: 1vh;
+            display: block;
+            height: 0.8vh;
+            min-width: 0.8vh;
+            line-height: 0.8vh;
+            font-size: 0.5vh;
+            color: @bg-color;
+            background-color: @main-color;
+            border-radius: 0.4vh;
+            text-align: center;
+        }
+    }
+    
+    li.active {
+        background-color: @bg-color;
+        color: @main-color;
+    }
+}

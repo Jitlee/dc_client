@@ -1,0 +1,95 @@
+
+.pay {
+    .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(200,200,200,0.5);
+        z-index: 999;
+    }
+    
+    .pay-body {
+        z-index: 999;
+        position: absolute;
+        top: 38vh;
+        left: 20vw;
+        
+        border-radius: 2vh;
+        background-color: @bg-color;
+        color: @font-color;
+        text-align: center;
+        box-sizing: border-box;
+        
+        .pay-title {
+            height: @body-title-height;
+            line-height: @body-title-height;
+            border-bottom: solid 1px @border-color;
+            font-size: 1.5vh;
+            text-align: center;
+            color: @font-color;
+            .nowrap();
+        }
+        
+       .qr {
+           padding: 1vh;
+           border-radius: 1vh;
+           margin: 2vh;
+           border: solid 1px @border-color;
+           display: inline-block;
+           img {
+               width: 25vw;
+               height: 25vw;
+           }
+       }
+       
+       .money {
+           text-aling: center;
+           padding: 0.5vh;
+           font-size: 1vh;
+           margin-bottom: 2vh;
+       }
+       
+       .tab {
+           display: table;
+           box-sizing: border-box;
+           margin: 0 8vw 4vw 8vw;
+           
+           width: 50vw;
+           
+           .nowrap();
+           
+           .tab-item {
+               display: inline-block;
+               width: 18.8vw;
+               height: 8vw;
+               
+               .bgimg();
+                 background-size: 16vw 6vw;
+               
+               .clickZoomIn();
+               
+               &.active {  
+                background-size: 18.8vw 8vw;
+               }
+               
+               &.tab-zhifubao {
+                   margin-right: 4vw;
+                   background-image: url(../images/zhifubao.png);
+                   &.active {
+                       background-image: url(../images/zhifubao-active.png);
+                   }
+               }
+               
+               &.tab-wechat {
+                   margin-left: 4vw;
+                   background-image: url(../images/wechat.png);
+                   &.active {
+                       background-image: url(../images/wechat-active.png);
+                   }
+               }
+           }
+       }
+    }
+}

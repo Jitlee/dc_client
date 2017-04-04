@@ -1,0 +1,34 @@
+
+.ads.swiper-container {
+    height: @ads-height;
+    
+    .swiper-slide {
+        height: @ads-height;
+        .bgimg();
+    }
+    
+    .pagination {
+        position: absolute;
+        bottom: 0;
+        left:0;
+        right: 0;
+        text-align: center;
+        height: 3vh;
+        line-height: 3vh;
+        z-index: 99;
+    }
+    
+    .swiper-pagination-bullet {
+        height: 1vh;
+        width: 1vh;
+        background-color: @gray-color;
+        display: inline-block;
+        border-radius: 1vh;
+        margin: 0.3vh;
+        transition: background-color 0.1s ease-in-out;
+    }
+    
+    .swiper-pagination-bullet-active {
+        background-color: @main-color;
+    }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "DC",
+  "version": "0.0.2",
+  "main": "main.js",
+  "window": {
+    "title": "点餐平台",
+    "icon": "./favicon.ico",
+    "frame": false,
+    "position": "center",
+    "width": 400,
+    "height": 300,
+    "fullscreen": false,
+    "resizable": false,
+    "always-on-top": true,
+    "show_in_taskbar": true
+  },
+  "scripts": {
+    "packager": "electron-packager . --platform=win32 --arch=x64 --electron-version=1.4.13 --out ./package --overwrite --icon ./favicon.ico"
+  },
+  "dependencies": {
+    "getmac": "^1.2.1",
+    "ip": "^1.1.5",
+    "machinepack-zip": "^1.1.0",
+    "md5": "^2.2.1",
+    "power-off": "^1.1.2",
+    "qrcode-js": "0.0.2",
+    "request": "^2.79.0",
+    "systeminformation": "^3.17.0"
+  }
+}

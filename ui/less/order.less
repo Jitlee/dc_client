@@ -1,0 +1,128 @@
+// 订单
+
+.order .body {
+    height: @order-height;
+    
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    box-sizing: border-box;
+    
+    .top {
+        padding: @order-padding;
+        box-sizing: border-box;
+    
+        .clear();
+    
+        .title, .money {
+            padding: 0;
+            margin: 0;
+            color: @main-color;
+            height: @order-title-height;
+            line-height: @order-title-height;
+            font-size: 1vh; 
+        }
+        
+        .title {
+            float: left;
+        }
+    
+        .money {
+            float: right;
+            color: @font-color;
+            span {
+                color: @main-color;
+                font-size: 1.5vh; 
+                display: inline-block;
+            }
+        }
+    }
+    
+    .pay-panel {
+        position: absolute;
+        right: 3vw;
+        top: 3.5vh;
+        text-align: center;
+        
+        a {
+            display: block;
+            background-color: @main-color;
+            font-size: 1.2vh;
+            padding: 0.5vh 1.5vh;
+            color: @bg-color;
+            border-radius: 0.5vh;
+            width: 13vw;
+            margin:auto;
+            .clickZoomIn();
+            
+            
+            &.disabled {
+                background-color: @menu-bg-color;
+                color: @gray-color;
+            }
+        }
+        
+        .cancel {
+            margin-top: 0.5vh;
+            color: @font-color;
+            background-color: @menu-bg-color;
+        }
+    }
+    
+        
+    .nodata {
+        text-align: center;
+        padding: 1vh 0;
+        font-size: 1.5vh;
+        width:75vw;
+    }
+    
+    // 订单列表
+    .view-scroll {
+        width: 75vw;
+        overflow-x: scroll;
+        padding-left: 1vh;
+        
+        .view {
+            .cell {
+                height: @order-list-height;
+                border-radius: 1vh;
+                background-color: @menu-bg-color;
+                padding: 0.5vh;
+                box-sizing: border-box;
+                font-size: 1vh;
+                width: 20vw;
+                display: block;
+                margin-right: 1vh;
+                margin-bottom: 0.5vh;
+                
+                cursor: pointer;
+                  position: relative;
+                  float: left;
+                
+                .row {
+                    display: block;
+                    width: 100%;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    font-size: 0.5vh;
+                    display: table;
+                    padding: 0.5vh 1vh;
+                    box-sizing: border-box;
+                    
+                    .money, .count {
+                        display: table-cell;
+                    }
+                    .money {
+                        color: @main-color;
+                        text-align: right;
+                    }
+                }
+                
+                //.clickZoomIn();
+            }
+        }
+    }
+}

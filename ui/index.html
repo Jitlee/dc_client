@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>点餐系统</title>
+
+		<link rel="stylesheet" href="css/animate.min.css" charset="utf-8"/>
+		<link rel="stylesheet" href="lib/swiper/swiper.min.css" charset="utf-8"/>
+		<link rel="stylesheet" href="iconfont/iconfont.css" charset="utf-8"/>
+		<link rel="stylesheet" href="css/app.css" charset="utf-8"/>
+		<style>
+			.bounce-enter-active {
+				transition: transform 0.5s;
+			}
+			
+			.bounce-leave-active {
+				transition: opacity 0.2s;
+			}
+			
+			.bounce-enter {
+				transform: translateX(50%);
+			}
+			
+			.bounce-leave-active {
+				opacity: 0;
+			}
+			
+			.foodList-enter {
+			  	opacity: 0;
+			}
+			
+			.foodList-enter-active{
+			  animation: slideInRight 0.1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+			}
+			@keyframes pulse1 {
+			  from {
+			    -webkit-transform: scale3d(1, 1, 1);
+			    transform: scale3d(1, 1, 1);
+			  }
+			
+			  50% {
+			    -webkit-transform: scale3d(1.3, 1.3, 1.3);
+			    transform: scale3d(1.3, 1.3, 1.3);
+			  }
+			
+			  to {
+			    -webkit-transform: scale3d(1, 1, 1);
+			    transform: scale3d(1, 1, 1);
+			  }
+			}
+			.pulse1 {
+			  animation-name: pulse1;
+			}
+			
+			.list-complete-item {
+			  	transition: all 1s;
+			}
+			.list-complete-enter, .list-complete-leave-active {
+			  	opacity: 0;
+			  	transform: translateY(-20vh);
+			}
+			.list-complete-leave-active {
+			  	position: absolute;
+			}
+			
+		.modal-mask {
+  transition: opacity .3s ease;
+}	
+.modal-container {
+  
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+			
+			.modal-enter {
+			  opacity: 0;
+			}
+			.modal-leave-active {
+			  opacity: 0;
+			}
+			.modal-enter .modal-container,
+			.modal-leave-active .modal-container {
+			  -webkit-transform: scale(1.1);
+			  transform: scale(1.1);
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- app -->
+		<div id="app">
+			<transition name="bounce" mode="out-in">
+				<router-view></router-view>
+			</transition>
+		</div>
+		
+		<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+		<script src="lib/jquery/jquery-3.1.1.min.js"></script>
+		<script src="lib/vue/vue.js"></script>
+		<script src="lib/vue-router/vue-router.min.js"></script>
+		<script src="lib/lodash/lodash.min.js"></script>
+		<script src="lib/vuex/vuex.js"></script>
+		<script src="lib/swiper/swiper.min.js"></script>
+		<script src="lib/layer/layer.js"></script>
+		
+		<!-- 主页模块 -->
+		<script type="type/x-template" id="home-template">
+			<div>
+				<dc-ads class="animated slideInUp noprint" style="animation-duration:0.2s"></dc-ads>
+				<div class="title animated slideInUp noprint" style="animation-duration:0.3s">
+					果味mini coffee
+					<dc-weather></dc-weather>
+				</div>
+				<dc-body class="noprint"></dc-body>
+				<dc-order class="noprint"></dc-order>
+				
+				<dc-print></dc-print>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/home/home.js"></script>
+		
+		<!-- 广告模块 -->
+		<script type="type/x-template" id="ads-template">
+			<div :id="swipeId" class="ads swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="item in list" :style="{ backgroundImage: `url(${item.adFile})` }"></div>
+				</div>
+				<div class="pagination"></div>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/ads/ads.js"></script>
+		
+		<!-- 天气模块 -->
+		<script type="type/x-template" id="weather-template">
+			<div class="weather">
+				<p>
+					<img :src="icon"/>
+					{{minT}}-{{maxT}}℃
+				</p>
+				<p>
+					{{ year }}-{{ month }}-{{ date }}&nbsp;&nbsp;星期{{ week }}&nbsp;&nbsp;{{ hour }}:{{ minutes }}
+				</p>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/weather/weather.js"></script>
+		
+		<!-- 主体模块 -->
+		<script type="type/x-template" id="body-template">
+			<div class="body">
+				<dc-menu @change="handleMenuChange"></dc-menu>
+				<dc-food :categoryId="categoryId"></dc-food>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/body/body.js"></script>
+		
+		<!-- 菜单模块 -->
+		<script type="type/x-template" id="menu-template">
+			<div class="menu">
+				<h3><i class="iconfont icon-menu"></i>菜单</h3>
+				<ul>
+					<li v-for="(item, index) in list" :class="item.active" @click="handleClick(item, index)">
+						<div class="center">
+							<h5>{{ item.cateName_EN }}</h5>
+							<h4>{{ item.cateName }}</h4>
+						</div>
+						<div class="badge" v-if="item.badge > 0">{{ item.badge }}</div>
+					</li>
+				</ul>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/menu/menu.js"></script>
+		
+		<!-- 菜品模块 -->
+		<script type="type/x-template" id="food-template">
+			<div class="food">
+				<h3><i class="iconfont icon-shugang"></i>{{ category }}</h3>
+				<transition-group name="foodList" tag="ul" ref="list">
+					<li v-for="(item, index) in list" :key="`foodKey${item.foodid}`">
+						<div class="img" :style="{ backgroundImage: `url(${item.thumb})` }"></div>
+						<p class="name">{{ item.title }}</p>
+						<p class="money">¥{{ item.preprice }}</p>
+						<p class="count">
+							<i class="iconfont icon-jia" @click.navtive="handleAdd(item, index)"></i>
+							<span v-if="item.quantity > 0">{{ item.quantity }}</span>
+							<i v-if="item.quantity > 0" class="iconfont icon-jian" @click.navtive="handleRemove(item, index)"></i>
+						</p>
+					</li>
+				</transition-group>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/food/food.js"></script>
+		
+		<!-- 订单模块 -->
+		<script type="type/x-template" id="order-template">
+			<div class="order">
+				
+				<dc-pay v-show="this.$store.state.orderState == 1" :wxpayurl="wxpayurl" :alipayurl="alipayurl" @close="this.$store.state.orderState = 0" @next="this.$store.state.orderState = 2"></dc-pay>
+				<dc-done v-if="this.$store.state.orderState == 2" @close="this.$store.state.orderState = 0"></dc-done>
+				
+				<div class="body">
+					<div class="top">
+						<div class="title">菜单内容:</div>
+						<div class="money">总金额：<span ref="totalprice">¥{{ totalprice.toFixed(2) }}</span></div>
+					</div>
+					<div class="view-scroll">
+						<transition-group name="list-complete" class="view" :style="{ width: listWidth }" tag="div">
+							<a v-for="(item, index) in foods" @click="handleRemove(item)" v-bind:key="item" class="cell list-complete-item">
+								<div class="name">{{ item.title }}</div>
+								<div class="row">
+									<div class="count">份数:{{ item.quantity }}</div>
+									<div class="total">合计:{{ item.total }}</div>
+								</div>
+							</a>
+						</transition-group>
+					</div>
+					<div class="nodata" v-if="totalprice == 0">您的订单是空的</div>
+					<div class="pay-panel animated slideInUp">
+						<a @click="handlePay" :class="{ disabled: totalprice == 0 }">立即支付</a>
+						<a class="cancel" @click="handleCancel" :class="{ disabled: totalprice == 0 }">取消订单</a>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/order/order.js"></script>
+		
+		<!-- 支付模块 -->
+		<script type="type/x-template" id="pay-template">
+			<transition name="modal">
+				<div  class="pay">
+					<div class="bg modal-mask" @click="$emit('close')"></div>
+					<div class="pay-body modal-container">
+						<div class="pay-title" v-if="tabIndex == 0">请打开支付宝扫一扫 向我付款</div>
+						<div class="pay-title" v-if="tabIndex == 1">请打开微信扫一扫 向我付款</div>
+						<div class="qr">
+							<img :src="qrCode"/>
+						</div>
+						<div class="money">
+							总金额 ¥{{ totalprice.toFixed(2) }}
+						</div>
+						<div class="tab">
+							<div class="tab-item tab-zhifubao" :class="{ active: tabIndex == 0 }" @click="handleZhifubao"></div>
+							<div class="tab-item tab-wechat" :class="{ active: tabIndex == 1 }" @click="handleWechat"></div>
+						</div>
+					</div>
+				</div>
+			</transition>
+		</script>
+		<script type="text/javascript" src="views/pay/pay.js"></script>
+		
+		<!-- 支付完成 -->
+		<script type="type/x-template" id="done-template">
+			<transition name="modal">
+				<div class="done">
+					<div class="bg modal-mask"></div>
+					<div class="done-body modal-container">
+						<img src="./images/done.png"/>
+						<p>支付成功 正在打印小票</p>
+						<a>祝您用餐愉快欢迎再次光临</a>
+					</div>
+				</div>
+			</transition>
+		</script>
+		<script type="text/javascript" src="views/done/done.js"></script>
+		
+		<!-- 打印模块 -->
+		<script type="type/x-template" id="print-template">
+			<div class="print" v-if="printing">
+				<ul>
+					<li v-for="(item, index) in foods">
+						{{ item.title }}
+					</li>
+				</ul>
+			</div>
+		</script>
+		<script type="text/javascript" src="views/print/print.js"></script>
+			
+		<!-- 主模块 -->
+		<script src="js/main.js"></script>
+	</body>
+</html>
