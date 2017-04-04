@@ -7,14 +7,20 @@ Vue.component('dc-print', {
 		}
 	},
 	created() {
-		var mediaQueryList = window.matchMedia('print');
-		mediaQueryList.addListener(function(mql) {
-		    if (mql.matches) {
-		        console.log('before printing')
-		    } else {
-		        console.log('after printing')
-		    }
-		})
+		const ths = this
+		const state = this.$store.state
+//		const mediaQueryList = window.matchMedia('print')
+//		mediaQueryList.addListener(function(mql) {
+//		    if (mql.matches) {
+//		        console.log('正在打印')
+//		    } else {
+//		        console.log('打印结束')
+//		        state.orderState = 0
+//		        ths.$store.commit('clear')
+//		        ths.totalprice = 0
+//		        ths.foods.length = 0
+//		    }
+//		})
 	},
 	mounted() {
 		
@@ -25,14 +31,9 @@ Vue.component('dc-print', {
 			this.totalprice = state.totalprice
 			this.foods = state.foods.slice()
 			console.log('开始打印')
-			window.print()
-//			console.log('打印结束')
-//			state.orderState = 0
-//			setTimeout(()=> {
-//				console.log('打印结束')
-//				state.orderState = 0
-//			}, 5000)
-			
+			this.$nextTick(() => {
+				window.print()
+			})
 		}
 	},
 	computed: {

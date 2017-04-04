@@ -198,8 +198,8 @@
 		<script type="type/x-template" id="order-template">
 			<div class="order">
 				
-				<dc-pay v-show="this.$store.state.orderState == 1" :wxpayurl="wxpayurl" :alipayurl="alipayurl" @close="this.$store.state.orderState = 0" @next="this.$store.state.orderState = 2"></dc-pay>
-				<dc-done v-if="this.$store.state.orderState == 2" @close="this.$store.state.orderState = 0"></dc-done>
+				<dc-pay v-show="this.$store.state.orderState == 1" :wxpayurl="wxpayurl" :alipayurl="alipayurl" @close="$store.state.orderState = 0" @next="$store.state.orderState = 2"></dc-pay>
+				<dc-done v-if="this.$store.state.orderState == 2" @close="$store.state.orderState = 0"></dc-done>
 				
 				<div class="body">
 					<div class="top">

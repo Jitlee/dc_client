@@ -7,13 +7,13 @@ const request = require('request')
 const md5 = require('md5')
 
 
-const dataPath = getUserFolderPath();
-let configPath = path.join(process.env.PWD, 'config.json')
-//let config = { server: 'dc.yue68.com', port: 80 }
-let config = { server: '192.168.1.129', port: 8050 }
-const LOCAL_FOLDER = 'dc'
-const DATA_FOLDER = '__data'
-const IMAGE_FOLDER = '__images'
+const dataPath = getUserFolderPath()
+let configPath = path.join(path.dirname(process.execPath), 'config.json')
+let config = { server: 'dc.yue68.com', port: 80 }
+//let config = { server: '192.168.1.129', port: 8050 }
+const LOCAL_FOLDER = '__dc__' // 缓存文件夹名称
+const DATA_FOLDER = '__data' // 缓存数据文件夹名称
+const IMAGE_FOLDER = '__images' // 缓存图片文件夹名称
 
 function createQRCode(url) {
 	const qrcode = require('qrcode-js')
@@ -56,19 +56,23 @@ function saveImage(imagePath, callback) {
 	const fileUrl = getFullUrl(imagePath)
 	const localUrl = `./${IMAGE_FOLDER}/${fileName}`
 	checkPath(localPath)
-	request({url: fileUrl, encoding: null}, function(err, resp, body) {
-		if(err) {
-	  		callback(-1, fileUrl);
-	  	} else {
-		  	fs.writeFile(filePath, body, function(err) {
-		  		if(err) {
-		  			callback(-1, fileUrl)
-		  			return
-		  		}
-		  		callback(0, localUrl)
-		  	});
-		}
-	})	
+	if(fs.existsSync(filePath)) {
+		callback(0, localUrl)
+	} else {
+		request({url: fileUrl, encoding: null}, function(err, resp, body) {
+			if(err) {
+		  		callback(-1, fileUrl);
+		  	} else {
+			  	fs.writeFile(filePath, body, function(err) {
+			  		if(err) {
+			  			callback(-1, fileUrl)
+			  			return
+			  		}
+			  		callback(0, localUrl)
+			  	});
+			}
+		})	
+	}
 }
 
 function readConfig() {
@@ -83,10 +87,10 @@ function readConfig() {
 function saveConfig(newCofing, callback) {
 	fs.writeFile(configPath, JSON.stringify(newCofing),function(err){  
         if(err) {
-        		callback && callback(err)
+    		callback && callback(err)
         } else {
-        		extend(config, newCofing)
-        		callback && callback(null)
+    		extend(config, newCofing)
+    		callback && callback(null)
         }
     }); 
 }

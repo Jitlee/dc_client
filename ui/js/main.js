@@ -7,21 +7,7 @@ $.fn.extend({
     }
 })
 
-const cv = (function() {
-	if(window.require) {
-		const path = require('path')
-		const fs = require('fs')
-		let filePath = path.join(process.env.PWD, '/js/checkversion.js')
-		if(!fs.existsSync(filePath)) {
-			filePath = path.join(process.resourcesPath,'/app/js/checkversion.js')
-			if(!fs.existsSync(filePath)) {
-				console.error('find root path failed!')
-			}
-		}
-		return require(filePath)
-	}
-	return null
-})()
+const cv = getCV() // 项目通用方法库
 
 window._createQRCode = function(url) {
 	if(cv) {
@@ -114,6 +100,30 @@ const getMenu = function (menus, categoryId) {
 	}
 	return null
 }
+
+function getCV() {
+	if(window.require) {
+		const path = require('path')
+		const fs = require('fs')
+		const paths = [
+			// 开发环境1
+			path.join(process.cwd(), 'js/checkversion.js'),
+			// 开发环境2
+			path.join(__dirname, 'js/checkversion.js'),
+			// 打包环境
+			path.join(process.resourcesPath,'/app/js/checkversion.js'),
+		]
+		for(let i = 0, count = paths.length; i < count; i++) {
+			if(fs.existsSync(paths[i])) {
+				return require(paths[i])
+			}
+		}
+	}
+	return null
+}
+
+// -------------------------------
+// vuex --------------------------
 
 // store
 const store = new Vuex.Store({
